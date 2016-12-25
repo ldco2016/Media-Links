@@ -20,10 +20,29 @@ class Media_Links_Widget extends WP_Widget {
 	 * @param array $instance
 	 */
 	public function widget( $args, $instance ) {
-	    ?>
-		TEST FRONTEND
+		$links = array(
+		    'facebook' => esc_attr($instance['facebook_link']),
+		    'twitter' => esc_attr($instance['twitter_link']),
+		    'linkedin' => esc_attr($instance['linkedin_link']),
+		    'google' => esc_attr($instance['google_link'])
+		);
+		
+		
+		$icons = array(
+		    'facebook' => esc_attr($instance['facebook_icon']),
+		    'twitter' => esc_attr($instance['twitter_icon']),
+		    'linkedin' => esc_attr($instance['linkedin_icon']),
+		    'google' => esc_attr($instance['google_icon'])
+		);
 
-	    <?php
+		$icon_width = $instance['icon_width'];
+		
+		echo $args['before_widget'];
+	
+		// Call Frontend Function
+		$this->getMediaLinks($links, $icons, $icon_width);
+
+		echo $args['after_widget'];
 	}
 
 	/**
@@ -164,5 +183,23 @@ class Media_Links_Widget extends WP_Widget {
 
 
 	    <?php
+	}
+
+	/**
+	 * Gets and Displays Media Icons
+	 *
+	 * @param array $links Media Links
+	 * @param array $icons Media Icons
+	 * @param array $icon_width Width of Icons
+	 */
+	public function getMediaLinks( $links, $icons, $icon_width ) {
+	    ?>
+		<div class="media-links">
+		  <a target="_blank" href="<?php echo esc_attr($links['facebook']); ?>"><img width="<?php echo ($icon_width); ?>" src="<?php echo esc_attr($icons['facebook']); ?>"></a>
+		  <a target="_blank" href="<?php echo esc_attr($links['twitter']); ?>"><img width="<?php echo ($icon_width); ?>" src="<?php echo esc_attr($icons['twitter']); ?>"></a>
+		  <a target="_blank" href="<?php echo esc_attr($links['linkedin']); ?>"><img width="<?php echo ($icon_width); ?>" src="<?php echo esc_attr($icons['linkedin']); ?>"></a>
+		  <a target="_blank" href="<?php echo esc_attr($links['google']); ?>"><img width="<?php echo ($icon_width); ?>" src="<?php echo esc_attr($icons['google']); ?>"></a>
+		</div>
+      	    <?php
 	}
 }
